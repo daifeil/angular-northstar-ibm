@@ -1,0 +1,13 @@
+{
+  "name": "angular-northstar",
+  "private": "true",
+  "devDependencies": {
+    "angular-northstar-ibm": "https://github.com/todaynowork/angular-northstar-ibm.git"
+  },
+  "dependencies": {
+    "angular-translate": "^2.13.0",
+    "angular-translate-loader-static-files": "^2.13.0",
+    "angular-messages": "1.5.3",
+    "angular-ui-router": "^1.0.5"
+  }
+}
