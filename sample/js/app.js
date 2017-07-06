@@ -18,11 +18,6 @@ app.config(['$translateProvider',function($translateProvider) {
 
 }]);
 app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider,$urlRouterProvider) {
-  // var helloState = {
-  //   name: 'hello',
-  //   url: '/hello',
-  //   template: '<h3>hello world!</h3>'
-  // }
 
   var mainState = {
     name: 'main',
@@ -30,12 +25,28 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider,$url
     templateUrl: 'js/pages/page.html'
   }
 
-  // $stateProvider.state(helloState);
   $stateProvider.state(mainState);
   $urlRouterProvider.otherwise('/main');
 
 }]);
-app.controller('SampleCtrl',['$scope', 'constants','$translate', function($scope,constants,$translate){
+app.controller('SampleCtrl',['$scope', 'constants','$translate','$filter', function($scope,constants,$translate,$filter){
+
+//set select
+  var caseStatus = [];
+  for(var key in constants.CASE_STATUS.CN){
+    caseStatus.push({id:constants.CASE_STATUS.CN[key],name:'LIST.CASE_STATUS.'+key});
+  }     
+
+  $scope.caseStatusList = caseStatus;
+
+//set date
+
+$scope.dateObj={};
+
+//set case selected 
+// $scope.model = {};
+
+// set datatable
   var dataArray = [{"IncidentNo":"1415754","CallNo":"P4FFBJ2","Status":"ETA","MachineType":"8286","MachineModel":"41A","MachineSN":"84394CW","CustomerName":"江西银行股份有限公司","IsSlaOut":"N","CustCorpName":"江西银行股份有限公司","ReportTime":"16-10-14 17:07"},{"IncidentNo":"1415719","CallNo":"P4FFBN3","Status":"ETA","MachineType":"8408","MachineModel":"E8D","MachineSN":"84DB5EV","CustomerName":"江西银行股份有限公司","IsSlaOut":"N","CustCorpName":"江西银行股份有限公司","ReportTime":"16-10-14 16:42"},{"IncidentNo":"1415711","CallNo":"P4FFB5F","Status":"CNT","MachineType":"9848","MachineModel":"AC2","MachineSN":"78AZ020","CustomerName":"江西银行股份有限公司","IsSlaOut":"N","CustCorpName":"江西银行股份有限公司","ReportTime":"16-10-14 16:36"},{"IncidentNo":"1413981","CallNo":"P4FFKT1","Status":"ETA","MachineType":"2076","MachineModel":"124","MachineSN":"78RG76A","CustomerName":"江西银行股份有限公司","IsSlaOut":"N","CustCorpName":"江西银行股份有限公司","ReportTime":"16-10-10 17:19"},{"IncidentNo":"1413536","CallNo":"P4FFVPT","Status":"ETA","MachineType":"2076","MachineModel":"224","MachineSN":"78RX1B6","CustomerName":"江西银行股份有限公司","IsSlaOut":"N","CustCorpName":"江西银行股份有限公司","ReportTime":"16-10-09 16:09"},{"IncidentNo":"1412917","CallNo":"P4FFJKV","Status":"HPE","MachineType":"2145","MachineModel":"DH8","MachineSN":"75ANGA0","CustomerName":"江西银行股份有限公司","IsSlaOut":"N","CustCorpName":"江西银行股份有限公司","ReportTime":"16-10-08 10:21"},{"IncidentNo":"1412327","CallNo":"P4FFN25","Status":"ETA","MachineType":"8286","MachineModel":"41A","MachineSN":"841CA2W","CustomerName":"江西银行股份有限公司","IsSlaOut":"N","CustCorpName":"江西银行股份有限公司","ReportTime":"16-09-30 18:17"},{"IncidentNo":"1412326","CallNo":"P4FFN29","Status":"ETA","MachineType":"8286","MachineModel":"41A","MachineSN":"84E4D7V","CustomerName":"江西银行股份有限公司","IsSlaOut":"N","CustCorpName":"江西银行股份有限公司","ReportTime":"16-09-30 18:05"},{"IncidentNo":"1412325","CallNo":"P4FFNJZ","Status":"CLS","MachineType":"8284","MachineModel":"22A","MachineSN":"848801V","CustomerName":"江西银行股份有限公司","IsSlaOut":"N","CustCorpName":"江西银行股份有限公司","ReportTime":"16-09-30 17:53"},{"IncidentNo":"1412229","CallNo":"P4FFN1H","Status":"CLS","MachineType":"8205","MachineModel":"E6D","MachineSN":"210924V","CustomerName":"江西银行股份有限公司","IsSlaOut":"N","CustCorpName":"江西银行股份有限公司","ReportTime":"16-09-30 16:36"},{"IncidentNo":"1412119","CallNo":"P4FF5Y7","Status":"CLS","MachineType":"8205","MachineModel":"E6D","MachineSN":"21220BV","CustomerName":"江西银行股份有限公司","IsSlaOut":"N","CustCorpName":"江西银行股份有限公司","ReportTime":"16-09-30 15:08"},{"IncidentNo":"1412118","CallNo":"P4FF5TV","Status":"CLS","MachineType":"8286","MachineModel":"41A","MachineSN":"841C9EW","CustomerName":"江西银行股份有限公司","IsSlaOut":"N","CustCorpName":"江西银行股份有限公司","ReportTime":"16-09-30 15:05"},{"IncidentNo":"1412084","CallNo":"P4FF5HJ","Status":"CLS","MachineType":"8286","MachineModel":"41A","MachineSN":"841CA1W","CustomerName":"江西银行股份有限公司","IsSlaOut":"N","CustCorpName":"江西银行股份有限公司","ReportTime":"16-09-30 14:32"},{"IncidentNo":"1409317","CallNo":"P4F7RWW","Status":"CLS","MachineType":"8205","MachineModel":"E6D","MachineSN":"84CD12V","CustomerName":"江西银行股份有限公司","IsSlaOut":"N","CustCorpName":"江西银行股份有限公司","ReportTime":"16-09-23 17:43"},{"IncidentNo":"1409180","CallNo":"P4F7RDD","Status":"CLS","MachineType":"8202","MachineModel":"E4D","MachineSN":"84E543V","CustomerName":"江西银行股份有限公司","IsSlaOut":"N","CustCorpName":"江西银行股份有限公司","ReportTime":"16-09-23 14:52"},{"IncidentNo":"1409113","CallNo":"P4F7B2P","Status":"CLS","MachineType":"2076","MachineModel":"224","MachineSN":"78RGCD7","CustomerName":"江西银行股份有限公司","IsSlaOut":"N","CustCorpName":"江西银行股份有限公司","ReportTime":"16-09-23 11:05"},{"IncidentNo":"1409104","CallNo":"P4F7BNB","Status":"CLS","MachineType":"2076","MachineModel":"124","MachineSN":"78RGCNP","CustomerName":"江西银行股份有限公司","IsSlaOut":"N","CustCorpName":"江西银行股份有限公司","ReportTime":"16-09-23 10:41"}];
   $scope.items = dataArray;
   $scope.columns = [
@@ -62,32 +73,72 @@ app.controller('SampleCtrl',['$scope', 'constants','$translate', function($scope
         }
   ];
 
-  // go to detail page
+  // go to detail page , deal with button
   $scope.goToDetail = function(incidentNo){
-
- 
-
-    // caseService.getCaseDetailByNO(incidentNo).then(function(data){
-    //   $log.debug ("get detail success");
-    //   $log.debug (data);
-    //   caseService.caseDetail = caseServiceHelper.setCaseInfo(data);
-    //   $scope.caseInfo = caseService.caseDetail.caseInfo;
-    //   //$scope.serviceLogs = caseService.caseDetail.serviceHistory;
-    //   $scope.trackingInfo = caseService.caseDetail.trackingInfo;
-
-    //   caseService.getChatListByNo($scope.caseInfo.rcmsNo).then(function(data){
-    //     $scope.serviceLogs=caseServiceHelper.getServiceRecod(data);
-    //   });
-
       jQuery('#fwaj-overlay').find('[data-widget="dyntabs"]').data("widget").showTab("fwaj-tab1");
+      //show overlay, TODO: move to common module to wrap the jquery call 
       IBMCore.common.widget.overlay.show('fwaj-overlay');
-    // });
   };  
   
     //add to my tracking?
   $scope.isTrackingCall = function(incno, isTracking) {
     // caseService.addToMyTracking(incno, isTracking);
+  };
+
+   $scope.goToListByStatus = function(status, isClickable, url) {
+
+      var callStatus = '';
+      angular.forEach($scope.caseSelected,function(item, index){
+          callStatus = callStatus + item + ",";
+      });
+      callStatus = callStatus.substr(0, callStatus.length-1);
+
+      console.log("selected status is ============" + callStatus);
+      // var mt = '';
+      // angular.forEach($scope.tmpSelectedMachineList,function(item, index){
+      //     mt = mt + item + ",";
+      // });
+      // mt = mt.substr(0, mt.length-1);
+      // var custCorpSelected = '';
+      // angular.forEach($scope.corpSelected,function(item, index){
+      //     custCorpSelected = custCorpSelected + item + ",";
+      // });
+      // custCorpSelected = custCorpSelected.substr(0, custCorpSelected.length-1);
+      // caseService.corpInfo = custCorpSelected;
+      var dateRange='';
+      if($scope.dateObj.dateBegin){
+          if($scope.dateObj.dateEnd){
+            dateRange = $scope.dateObj.dateBegin+'-'+$scope.dateObj.dateEnd;
+        }else{
+            dateRange = $scope.dateObj.dateBegin+'-'+$filter('date')(new Date(),'yyyy/MM/dd');
+        }
+      }
+
+      console.log("data range is ==========" + dateRange);
+      // var parms = {
+      //     callstatus: callStatus,
+      //     daterange: dateRange,
+      //     sn: $scope.data.matchineSN,
+      //     custno: $scope.data.customeSN,
+      //     custnamc: $scope.data.customeName,
+      //     mt: mt,
+      //     CORPID:custCorpSelected
+      // }
+      // caseService.filter = caseServiceHelper.setFilter(parms);
+      // caseService.getCaseListByStatus(status, parms).then(function(data){
+
+      //   caseService.caseList = data;
+      //   $scope.$parent.items = caseService.caseList.items;
+      //   // opt = opt || {};
+      //   // $state.go('caseList',{status:status, url:url},opt);
+      // });
+      // caseServiceHelper.goToListByStatus(status, isClickable, url, parms,{reload: true});
+
+      var dataArray = [{"IncidentNo":"1415754","CallNo":"P4FFBJ2","Status":"ETA","MachineType":"8286","MachineModel":"41A","MachineSN":"84394CW","CustomerName":"江西银行股份有限公司","IsSlaOut":"N","CustCorpName":"江西银行股份有限公司","ReportTime":"16-10-14 17:07"},{"IncidentNo":"1415719","CallNo":"P4FFBN3","Status":"ETA","MachineType":"8408","MachineModel":"E8D","MachineSN":"84DB5EV","CustomerName":"江西银行股份有限公司","IsSlaOut":"N","CustCorpName":"江西银行股份有限公司","ReportTime":"16-10-14 16:42"}];
+    $scope.items = dataArray;
   }
+
+
 }]);
 
 app.constant('constants', {

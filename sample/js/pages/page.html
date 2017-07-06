@@ -3,7 +3,7 @@
     <div class="ibm-columns">
         <div class="ibm-col-1-1">
 
-             <div data-widget="showhide" data-type="panel" class="ibm-show-hide cloud-show-hide">
+             <div data-widget="showhide" data-type="panel" class="ibm-show-hide cloud-show-hide"  northstar-angular-construct>
                 <h2 class="ibm-h4">我的案件</h2>
                 <div class="ibm-container-body">
                     <div class="ibm-columns ibm-padding-top-2">
@@ -30,7 +30,7 @@
         <div class="ibm-columns ibm-padding-bottom-0">
             <div class="ibm-col-1-1">
 
-                 <div data-widget="showhide" data-type="panel" class="ibm-show-hide cloud-show-hide">
+                 <div data-widget="showhide" data-type="panel" class="ibm-show-hide cloud-show-hide" northstar-angular-construct>
                     <h2 class="ibm-h4">筛选案件</h2>
                     <div class="ibm-container-body">
                         <div class="ibm-columns ajfw-form">
@@ -38,14 +38,9 @@
                                 <p class="ibm-small">
                                     <label class="ibm-column-field-label" for="__REPLACE_ME_1__">案件状态&nbsp;&nbsp;</label>
                                     <span>
-                                        <!--<input class="ibm-small" type="text" value="" size="26" id="__REPLACE_ME_1__" name="first_name">&nbsp;-->
-                                        <select id="selectCase">
-                                            <option value ="">Select One</option>
-                                            <option value ="volvo">Volvo</option>
-                                            <option value ="saab">Saab</option>
-                                            <option value="opel">Opel</option>
-                                            <option value="audi">Audi</option>
-                                        </select>
+                                    <select multiple data-placeholder="Select one" ng-model="caseSelected" data-widget="selectlist" northstar-select>
+                                        <option ng-repeat="item in ::caseStatusList" value ="{{::item.id}}" translate>{{::item.name}}</option>
+                                    </select>
                                     </span>
                                 </p>
                                 <p class="ibm-small" id="selectedArea">
@@ -54,13 +49,13 @@
                                 <p class="ibm-small">
                                     <label class="ibm-column-field-label" for="__REPLACE_ME_1__">报修区间&nbsp;&nbsp;</label>
                                     <span>
-                                        <input class="ibm-small" data-widget="datepicker" type="text" value="" size="11" id="__REPLACE_ME_0098" name="__REPLACE_ME_0099">
+                                        <input class="ibm-small" data-widget="datepicker" type="text" value="" size="15" ng-model="dateObj.dateBegin" northstar-datepicker>
                                     </span>
                                     
                                     to
                                     
                                     <span>
-                                        <input class="ibm-small" data-widget="datepicker" type="text" value="" size="11" id="__REPLACE_ME_0099" name="__REPLACE_ME_0099">
+                                        <input class="ibm-small" data-widget="datepicker" type="text" value="" size="15" ng-model="dateObj.dateEnd" northstar-datepicker>
                                     </span>
                                 </p>
                                 
@@ -119,7 +114,7 @@
                         
                         <div class="ibm-columns ibm-padding-top-1">
                             <div class="ibm-col-1-1">
-                                <p><input class="ibm-btn-pri ibm-btn-blue-50" name="__REPLACE_ME__" value="立即查询"></p> 
+                                <p><input type="button" class="ibm-btn-pri ibm-btn-blue-50" name="__REPLACE_ME__" value="{{'CASE.BTN_SEARCH' | translate}}" ng-click="goToListByStatus('search',true, 'searchCase')"></p>
                             </div>
                         </div>
                     </div>
@@ -149,8 +144,8 @@
     </div>
     
     <!---- overlay ----->
-    <div class="ibm-common-overlay ibm-overlay-alt-three cloud-overlay" data-widget="overlay" id="fwaj-overlay">
-        <div data-widget="dyntabs" class="ibm-graphic-tabs">
+    <div class="ibm-common-overlay ibm-overlay-alt-three cloud-overlay" data-widget="overlay" id="fwaj-overlay" northstar-angular-overlay>
+        <div data-widget="dyntabs" class="ibm-graphic-tabs" northstar-angular-dyntabs>
             <!-- Tabs here: -->
             <div class="ibm-tab-section">
                 <ul class="ibm-tabs" role="tablist">
