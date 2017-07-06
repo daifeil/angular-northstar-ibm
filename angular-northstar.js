@@ -141,14 +141,22 @@ northStar.directive("northstarAngularDatatable", ['$timeout','$compile','$interp
     //             "sPrevious": "下一页"
     //         }
     //     }
-    // });
+    // });          
+                    if(attrs.tablerowselector=="enable"){
+                      jQuery(element).tablesrowselector();
+                    }
 
-                    $scope.$watchCollection(attrs.ngTableData, function(data) {
-                      dataTable.clear().rows.add(data).draw();
-                      // $interpolate(element.contents());
-                      $compile(element.contents())($scope);
-                      //$scope.dataCount = newNames.length;
-                    });
+
+
+                    if(attrs.ngTableData){
+                      $scope.$watchCollection(attrs.ngTableData, function(data) {
+                        dataTable.clear().rows.add(data).draw();
+                        // $interpolate(element.contents());
+                        $compile(element.contents())($scope);
+                        //$scope.dataCount = newNames.length;
+                      });
+                    }
+
 
                                       //destroy the overlay, actually not called
                     element.on('$destroy', function() {
@@ -237,4 +245,3 @@ northStar.directive("northstarAngularDyntabs", ['$timeout',function($timeout) {
       }
     };
 }]);
-
