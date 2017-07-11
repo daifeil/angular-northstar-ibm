@@ -140,22 +140,35 @@ northStar.directive("northstarAngularDatatable", ['$timeout','$compile','$interp
     //             "sNext":    "上一页",
     //             "sPrevious": "下一页"
     //         }
-    //     }
+    //     }  
     // });          
-                    if(attrs.tablerowselector=="enable"){
-                      jQuery(element).tablesrowselector();
+                    function tablerowselector(){
+                      if(attrs.tablerowselector=="enable"){
+                        jQuery(element).tablesrowselector();
+                      }                      
                     }
 
+                    tablerowselector();
 
+                    if($scope[attrs.ngDtReady] && typeof ($scope[attrs.ngDtReady]) ==='function'){
+                      $scope[attrs.ngDtReady](dataTable);
+                    }
 
                     if(attrs.ngTableData){
+                      // update the datatable by listener
                       $scope.$watchCollection(attrs.ngTableData, function(data) {
                         dataTable.clear().rows.add(data).draw();
                         // $interpolate(element.contents());
                         $compile(element.contents())($scope);
-                        //$scope.dataCount = newNames.length;
+                        tablerowselector();
+                      });
+                      // compile the html after every draw 
+                      dataTable.on('draw', function () {
+                          $compile(element.contents())($scope);
                       });
                     }
+
+
 
 
                                       //destroy the overlay, actually not called

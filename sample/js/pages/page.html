@@ -128,7 +128,7 @@
     <div class="ibm-columns ibm-padding-top-1 ibm-padding-bottom-2">
         <div class="ibm-col-1-1">
             
-            <table id="test1table" data-widget="datatable" data-col-reorder="true" data-info="true" data-ordering="true" data-paging="true" data-searching="true" class="ibm-data-table ibm-altrows ajfw-table" data-init="false" data-order='[[1,"asc"],[0,"asc"],[3,"asc"]]'  northstar-angular-datatable ng-table-columns="columns" ng-table-data="items">
+<!--             <table id="test1table" data-widget="datatable" data-col-reorder="true" data-info="true" data-ordering="true" data-paging="true" data-searching="true" class="ibm-data-table ibm-altrows ajfw-table" data-init="false" data-order='[[1,"asc"],[0,"asc"],[3,"asc"]]'  northstar-angular-datatable ng-table-columns="columns" ng-table-data="items">
                 <thead>
                     <tr>
                         <th>客户名称</th>
@@ -139,7 +139,128 @@
                         <th>&nbsp;</th>
                     </tr>
                 </thead>
-            </table>
+            </table> -->
+
+            <table id="test1table" data-tablerowselector="enable" data-widget="datatable" class="ibm-data-table" data-ordering="true"  data-column-defs='[{"targets":"no-sort","orderable":false}]' data-order='[]' data-paging="true" northstar-angular-datatable >
+    <caption>This is the table caption</caption>
+    <thead>
+        <tr>
+            <th scope="col" class="no-sort">
+                <span class="ibm-checkbox-wrapper">
+                    <input id="__REPLACE_ME_1__" type="checkbox" class="ibm-styled-checkbox"/>
+                    <label for="__REPLACE_ME_1__"><span class="ibm-access">Select row</span></label>
+                </span>
+            </th>
+            <th scope="col" class="ibm-numeric">Item</th>
+            <th scope="col">Description</th>
+            <th scope="col">Type</th>
+            <th scope="col">Date</th>
+            <th scope="col">Active</th>
+            <th scope="col">City</th>
+            <th scope="col">State</th>
+            <th scope="col" class="ibm-sort">Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td scope="row">
+                <span class="ibm-checkbox-wrapper">
+                    <input id="__REPLACE_ME_2__" type="checkbox" class="ibm-styled-checkbox"/>
+                    <label for="__REPLACE_ME_2__"><span class="ibm-access">Select row</span></label>
+                </span>
+            </td>
+            <td class="ibm-numeric"><a href="#">18739</a></td>
+            <td>Lorem ipsum dolor sit amet</td>
+            <td>Red</td>
+            <td>Dec 2, 2010</td>
+            <td>yes</td>
+            <td>Berkeley</td>
+            <td>CA</td>
+            <td>$1,234.56</td>
+        </tr>
+        <tr>
+            <td scope="row">
+                <span class="ibm-checkbox-wrapper">
+                    <input id="__REPLACE_ME_3__" type="checkbox" class="ibm-styled-checkbox"/>
+                    <label for="__REPLACE_ME_3__"><span class="ibm-access">Select row</span></label>
+                </span>
+            </td>
+            <td class="ibm-numeric">98302</td>
+            <td>Tellus at vehicula viverra</td>
+            <td>Blue</td>
+            <td>Nov 10, 2010</td>
+            <td>no</td>
+            <td>New York</td>
+            <td>NY</td>
+            <td>$25,000</td>
+        </tr>
+        <tr>
+            <td scope="row">
+                <span class="ibm-checkbox-wrapper">
+                    <input id="__REPLACE_ME_4__" type="checkbox" class="ibm-styled-checkbox"/>
+                    <label for="__REPLACE_ME_4__"><span class="ibm-access">Select row</span></label>
+                </span>
+            </td>
+            <td class="ibm-numeric">87302</td>
+            <td>Lorem ipsum dolor sit amet</td>
+            <td>Green</td>
+            <td>June 2, 2010</td>
+            <td>may be</td>
+            <td>Los Angels</td>
+            <td>CA</td>
+            <td>$18,000</td>
+        </tr>
+        <tr>
+            <td scope="row">
+                <span class="ibm-checkbox-wrapper">
+                    <input id="__REPLACE_ME_5__" type="checkbox" class="ibm-styled-checkbox"/>
+                    <label for="__REPLACE_ME_5__"><span class="ibm-access">Select row</span></label>
+                </span>
+            </td>
+            <td class="ibm-numeric">602408</td>
+            <td>Lorem ipsum dolor sit amet</td>
+            <td>Yellow</td>
+            <td>June 2, 2010</td>
+            <td>may be</td>
+            <td>Berkely</td>
+            <td>CA</td>
+            <td>$10,000</td>
+        </tr>
+        <tr>
+            <td scope="row">
+                <span class="ibm-checkbox-wrapper">
+                    <input id="__REPLACE_ME_6__" type="checkbox" class="ibm-styled-checkbox"/>
+                    <label for="__REPLACE_ME_6__"><span class="ibm-access">Select row</span></label>
+                </span>
+            </td>
+            <td class="ibm-numeric">18739</td>
+            <td>Lorem ipsum dolor sit amet</td>
+            <td>Red</td>
+            <td>Dec 2, 2010</td>
+            <td>yes</td>
+            <td>Berkeley</td>
+            <td>CA</td>
+            <td>$1,234.56</td>
+        </tr>
+                        <tr>
+            <td scope="row">
+                <span class="ibm-checkbox-wrapper">
+                    <input id="__REPLACE_ME_7__" type="checkbox" class="ibm-styled-checkbox"/>
+                    <label for="__REPLACE_ME_7__"><span class="ibm-access">Select row</span></label>
+                </span>
+            </td>
+            <td class="ibm-numeric"><a href="#">18739</a></td>
+            <td>Lorem ipsum dolor sit amet</td>
+            <td>Red</td>
+            <td>Dec 2, 2010</td>
+            <td>yes</td>
+            <td>Berkeley</td>
+            <td>CA</td>
+            <td>$1,234.56</td>
+        </tr>
+         
+    </tbody>
+</table>  
         </div>
     </div>
     
