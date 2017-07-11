@@ -157,6 +157,7 @@ northStar.directive("northstarAngularDatatable", ['$timeout','$compile','$interp
                     if(attrs.ngTableData){
                       // update the datatable by listener
                       $scope.$watchCollection(attrs.ngTableData, function(data) {
+                        data = data || [];
                         dataTable.clear().rows.add(data).draw();
                         // $interpolate(element.contents());
                         $compile(element.contents())($scope);
