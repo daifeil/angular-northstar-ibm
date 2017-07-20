@@ -160,11 +160,15 @@ northStar.directive("northstarAngularDatatable", ['$timeout','$compile','$interp
                         data = data || [];
                         dataTable.clear().rows.add(data).draw();
                         // $interpolate(element.contents());
-                        $compile(element.contents())($scope);
+                        //$compile(element.contents())($scope);
                         tablerowselector();
                       });
                       // compile the html after every draw 
                       dataTable.on('draw', function () {
+                          jQuery(element).find("td [ng-click]").each(function() {
+                            //$(this).addClass( "foo" );
+                            this.outerHTML = this.outerHTML;
+                          });
                           $compile(element.contents())($scope);
                       });
                     }
