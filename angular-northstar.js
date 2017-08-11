@@ -169,6 +169,10 @@ northStar.directive("northstarAngularDatatable", ['$timeout','$compile','$interp
                             //$(this).addClass( "foo" );
                             this.outerHTML = this.outerHTML;
                           });
+                          jQuery(element).find("th [ng-click]").each(function() {
+                              //$(this).addClass( "foo" );
+                              this.outerHTML = this.outerHTML;
+                            });
                           $compile(element.contents())($scope);
                       });
                     }
