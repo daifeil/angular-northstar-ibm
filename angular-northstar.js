@@ -1,28 +1,62 @@
 var northStar = angular.module('northStar',[]);
 
-northStar.factory('northStarUtil',['$window',function($window){
+northStar.factory('northStarUtil',['$window','$timeout',function($window,$timeout){
     return{     //存储单个属性
       setScopeProperty :function(scope,attrName,value){
-          var names = attrName.split('.');
-          var varDef = scope[names[0]];
-          if(names.length > 1){
+        var names = attrName.split('.');
+        var varDef = scope[names[0]];
+        if(names.length > 1){
 
+          if(!varDef){
+            varDef = {};
+          }
+          for (var i = 1; i < names.length-1; i++) {
+            varDef = varDef[names[i]];
             if(!varDef){
               varDef = {};
             }
-            for (var i = 1; i < names.length-1; i++) {
-              varDef = varDef[names[i]];
-              if(!varDef){
-                varDef = {};
-              }
-            }
-            varDef[names[names.length-1]] = value;
-          }else{
-            varDef = value;
           }
+          varDef[names[names.length-1]] = value;
+        }else{
+          varDef = value;
         }
-      }
+      },
+      isMobileMenuInited: false,
+
+      mobileMenuInit:function(){
+         $timeout(function () {
+            if(this.isMobileMenuInited){
+              return;
+            }
+            IBMCore.common.module.sitenavmenu.init();
+            IBMCore.common.module.mobilemenu.addSiteNavigation();
+
+            isMobileMenuInited = true;
+            setTimeout(function(){
+              $mobilemenu = jQuery('.ibm-mobilemenu-section.ibm-mobilemenu-sitenavmenu');
+              $mobilemenu.find("a").each(function () {
+                // var newUrl = IBMCore.common.util.url.removeParam({
+                //       url: this.getAttribute("href"),
+                //       paramName: "lnk"
+                //     });
+                // this.href = newUrl;
+                this.href = this.getAttribute("href").replace('?lnk=hm','');
+
+                jQuery(this).click(function(){
+                  IBMCore.common.module.mobilemenu.hide();
+                });
+              
+              });
+            },5);
+        });
+      },
+      mobileDestroy:function(){
+        $mobilemenu = jQuery('.ibm-mobilemenu-section.ibm-mobilemenu-sitenavmenu');
+        $mobilemenu.remove();
+        isMobileMenuInited = false;          
+      }    
     }
+  }
 ]);
 // // ng-repeat, when last ,rebuild the datatable
 // northStar.directive('northstarRefreshDatatable', ['$timeout',function($timeout) {
