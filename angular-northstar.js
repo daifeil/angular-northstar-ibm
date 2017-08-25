@@ -1,6 +1,6 @@
 var northStar = angular.module('northStar',[]);
 
-northStar.factory('northStarUtil',['$window','$timeout',function($window,$timeout){
+northStar.factory('northStarUtil',['$window','$timeout','$compile','$rootScope',function($window,$timeout,$compile,$rootScope){
     return{     //存储单个属性
       setScopeProperty :function(scope,attrName,value){
         var names = attrName.split('.');
@@ -34,14 +34,15 @@ northStar.factory('northStarUtil',['$window','$timeout',function($window,$timeou
             isMobileMenuInited = true;
             setTimeout(function(){
               $mobilemenu = jQuery('.ibm-mobilemenu-section.ibm-mobilemenu-sitenavmenu');
+              $compile($mobilemenu.contents())($rootScope);
               $mobilemenu.find("a").each(function () {
                 // var newUrl = IBMCore.common.util.url.removeParam({
                 //       url: this.getAttribute("href"),
                 //       paramName: "lnk"
                 //     });
                 // this.href = newUrl;
-                this.href = this.getAttribute("href").replace('?lnk=hm','');
-
+                if(this.getAttribute("href"))
+                  this.href = this.getAttribute("href").replace('?lnk=hm','');
                 jQuery(this).click(function(){
                   IBMCore.common.module.mobilemenu.hide();
                 });
