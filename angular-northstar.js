@@ -21,6 +21,25 @@ northStar.factory('northStarUtil',['$window','$timeout','$compile','$rootScope',
           varDef = value;
         }
       },
+      getScopeProperty :function(scope,attrName){
+        var names = attrName.split('.');
+        var varDef = scope[names[0]];
+        if(names.length > 1){
+
+          // if(!varDef){
+          //   varDef = {};
+          // }
+          for (var i = 1; i < names.length-1; i++) {
+            varDef = varDef[names[i]];
+            // if(!varDef){
+            //   varDef = {};
+            // }
+          }
+          return varDef[names[names.length-1]] ;
+        }else{
+          return varDef;
+        }
+      },
       isMobileMenuInited: false,
 
       mobileMenuInit:function(){
@@ -276,6 +295,14 @@ northStar.directive("northstarSelect", ['$timeout','northStarUtil',function($tim
                       });
                     });
 
+                    if(attrs.ngModel){
+                      // update the datatable by listener
+                      $scope.$watch(attrs.ngModel, function(data) {
+                        var selVal = northStarUtil.getScopeProperty($scope,attrs.ngModel);
+                        $select2.val(selVal).trigger('change');
+                      });
+                    }
+
                 } );
             }
     };
@@ -301,4 +328,3 @@ northStar.directive("northstarAngularDyntabs", ['$timeout',function($timeout) {
           });
       }
     };
-}]);

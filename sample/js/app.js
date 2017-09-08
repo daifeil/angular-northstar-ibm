@@ -39,6 +39,8 @@ app.controller('SampleCtrl',['$scope', 'constants','$translate','$filter', funct
 
   $scope.caseStatusList = caseStatus;
 
+  // set initial value for select
+  $scope.caseSelected = ["CNT"];
 //set date
 
 $scope.dateObj={};
