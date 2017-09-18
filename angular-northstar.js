@@ -140,7 +140,6 @@ northStar.directive("northstarAngularOverlay", ['$timeout',function($timeout) {
                   //destroy the overlay
                   $scope.$on('$destroy', function() {
                     IBMCore.common.widget.overlay.destroy(element[0].id);
-                    jQuery("#"+element[0].id).remove();
                   });
                 });
             }
@@ -329,3 +328,4 @@ northStar.directive("northstarAngularDyntabs", ['$timeout',function($timeout) {
           });
       }
     };
+}]);
