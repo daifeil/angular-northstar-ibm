@@ -1,28 +1,85 @@
 var northStar = angular.module('northStar',[]);
 
-northStar.factory('northStarUtil',['$window',function($window){
+northStar.factory('northStarUtil',['$window','$timeout','$compile','$rootScope',function($window,$timeout,$compile,$rootScope){
     return{     //存储单个属性
       setScopeProperty :function(scope,attrName,value){
-          var names = attrName.split('.');
-          var varDef = scope[names[0]];
-          if(names.length > 1){
+        var names = attrName.split('.');
+        if(!scope[names[0]]){
+        	scope[names[0]]={};
+        }
+        var varDef = scope[names[0]];
+        if(names.length > 1){
 
+          if(!varDef){
+            varDef = {};
+          }
+          for (var i = 1; i < names.length-1; i++) {
+            varDef = varDef[names[i]];
             if(!varDef){
               varDef = {};
             }
-            for (var i = 1; i < names.length-1; i++) {
-              varDef = varDef[names[i]];
-              if(!varDef){
-                varDef = {};
-              }
-            }
-            varDef[names[names.length-1]] = value;
-          }else{
-            varDef = value;
           }
+          varDef[names[names.length-1]] = value;
+        }else{
+          varDef = value;
         }
-      }
+      },
+      getScopeProperty :function(scope,attrName){
+        var names = attrName.split('.');
+        var varDef = scope[names[0]];
+        if(names.length > 1){
+
+          // if(!varDef){
+          //   varDef = {};
+          // }
+          for (var i = 1; i < names.length-1; i++) {
+            varDef = varDef[names[i]];
+            // if(!varDef){
+            //   varDef = {};
+            // }
+          }
+          return varDef[names[names.length-1]] ;
+        }else{
+          return varDef;
+        }
+      },
+      isMobileMenuInited: false,
+
+      mobileMenuInit:function(){
+         $timeout(function () {
+            if(this.isMobileMenuInited){
+              return;
+            }
+            IBMCore.common.module.sitenavmenu.init();
+            IBMCore.common.module.mobilemenu.addSiteNavigation();
+
+            isMobileMenuInited = true;
+            setTimeout(function(){
+              $mobilemenu = jQuery('.ibm-mobilemenu-section.ibm-mobilemenu-sitenavmenu');
+              $compile($mobilemenu.contents())($rootScope);
+              $mobilemenu.find("a").each(function () {
+                // var newUrl = IBMCore.common.util.url.removeParam({
+                //       url: this.getAttribute("href"),
+                //       paramName: "lnk"
+                //     });
+                // this.href = newUrl;
+                if(this.getAttribute("href"))
+                  this.href = this.getAttribute("href").replace('?lnk=hm','');
+                jQuery(this).click(function(){
+                  IBMCore.common.module.mobilemenu.hide();
+                });
+              
+              });
+            },5);
+        });
+      },
+      mobileDestroy:function(){
+        $mobilemenu = jQuery('.ibm-mobilemenu-section.ibm-mobilemenu-sitenavmenu');
+        $mobilemenu.remove();
+        isMobileMenuInited = false;          
+      }    
     }
+  }
 ]);
 // // ng-repeat, when last ,rebuild the datatable
 // northStar.directive('northstarRefreshDatatable', ['$timeout',function($timeout) {
@@ -174,6 +231,7 @@ northStar.directive("northstarAngularDatatable", ['$timeout','$compile','$interp
                               //$(this).addClass( "foo" );
                               this.outerHTML = this.outerHTML;
                             });
+                        
                           $compile(element.contents())($scope);
                       });
                     }
@@ -241,6 +299,14 @@ northStar.directive("northstarSelect", ['$timeout','northStarUtil',function($tim
                         console.log('$scope.$apply() called');
                       });
                     });
+
+                    if(attrs.ngModel){
+                      // update the datatable by listener
+                      $scope.$watch(attrs.ngModel, function(data) {
+                        var selVal = northStarUtil.getScopeProperty($scope,attrs.ngModel);
+                        $select2.val(selVal).trigger('change');
+                      });
+                    }
 
                 } );
             }
