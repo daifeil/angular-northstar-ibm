@@ -4,6 +4,9 @@ northStar.factory('northStarUtil',['$window','$timeout','$compile','$rootScope',
     return{     //存储单个属性
       setScopeProperty :function(scope,attrName,value){
         var names = attrName.split('.');
+        if(!scope[names[0]]){
+          scope[names[0]]={};
+        }
         var varDef = scope[names[0]];
         if(names.length > 1){
 
